@@ -1,10 +1,14 @@
 package health.tabia.challenge;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.List;
 
 public class Iterator implements MetricIterator {
 
     private ArrayList<Metric> metrics;
+    private List<LocalDate> metricsDate;
     private int cursor = 0;
 
     Iterator(ArrayList<Metric> metrics) {
