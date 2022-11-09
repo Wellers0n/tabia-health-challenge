@@ -1,6 +1,5 @@
 package health.tabia.challenge;
 
-
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -45,32 +44,21 @@ public class Store implements MetricStore {
             localDateEnd = localDateFrom;
         }
 
-
-        // filtrar essa lista, ela precisa ficar menor que a da store
         List<LocalDate> dateList = localDateStart.datesUntil(localDateEnd).collect(Collectors.toList());
-
-        // datess.forEach(System.out::println);
 
         LocalDate storeDate = new Timestamp(metricsIterator.current().getTimestamp()).toLocalDateTime().toLocalDate();
 
         for (int i = 0; i < store.size(); i++) {
 
-            // if (localDateStart.datesUntil(localDateEnd)) {
-            if (name == "") {
-
-                System.out.println(metricsIterator.current().getName());
-                metricsIterator.moveNext();
-
-            } else if (metricsIterator.current().getName() == name) {
-
-                System.out.println(metricsIterator.current().getName());
-                metricsIterator.moveNext();
-            } else {
+            if (!dateList.contains(storeDate)) {
                 metricsIterator.remove();
-                metricsIterator.moveNext();
+            }
+            if (name == "") {
+                System.out.println(metricsIterator.current().getName());
+            } else if (metricsIterator.current().getName() == name) {
+                System.out.println(metricsIterator.current().getName());
             }
         }
-        // }
 
         return metricsIterator;
     }
