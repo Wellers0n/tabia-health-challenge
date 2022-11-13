@@ -18,24 +18,24 @@ public class Store implements MetricStore {
         if (store.isEmpty()) {
             return 0;
         }
-        int begin = 0;
+        int left = 0;
         int right = store.size() - 1;
         int mid;
-        while (right > begin) {
-            mid = (right + begin) / 2;
-            long searchTimestamp = store.get(mid).getTimestamp();
-            if (timestamp == searchTimestamp) {
+        while (right > left) {
+            mid = (right + left) / 2;
+            long timestampTarget = store.get(mid).getTimestamp();
+            if (timestamp == timestampTarget) {
                 return mid;
-            } else if (timestamp > searchTimestamp) {
-                begin = mid + 1;
+            } else if (timestamp > timestampTarget) {
+                left = mid + 1;
             } else {
                 right = mid - 1;
             }
         }
-        if (store.get(begin).getTimestamp() > timestamp) {
-            return begin;
+        if (store.get(left).getTimestamp() > timestamp) {
+            return left;
         }
-        return begin + 1;
+        return left + 1;
     }
 
     public void insert(Metric metric) {

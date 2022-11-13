@@ -23,7 +23,7 @@ public class Main {
         store.insert(metricTwo);
         store.insert(metricThree);
 
-        store.query("Hubert", tsTimeTwo, tsTimeThree);
+        store.query("", tsTimeTwo, tsTimeThree);
 
     }
 }
