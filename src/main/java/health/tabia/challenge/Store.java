@@ -14,28 +14,30 @@ import java.util.stream.Collectors;
 public class Store implements MetricStore {
     private final ArrayList<Metric> store = new ArrayList<Metric>();
 
-    private int binarySearch(long timestamp) {
+    private int binarySearch(long timestampTarget) {
         if (store.isEmpty()) {
             return 0;
         }
+
         int left = 0;
         int right = store.size() - 1;
-        int mid;
-        while (right > left) {
-            mid = (right + left) / 2;
-            long timestampTarget = store.get(mid).getTimestamp();
+        int ans = 0;
+
+        while (left <= right) {
+            int mid = left + ((right - left) / 2);
+            long timestamp = store.get(mid).getTimestamp();
             if (timestamp == timestampTarget) {
-                return mid;
-            } else if (timestamp > timestampTarget) {
-                left = mid + 1;
-            } else {
+                ans = mid;
                 right = mid - 1;
+            } else if (timestamp > timestampTarget) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
             }
         }
-        if (store.get(left).getTimestamp() > timestamp) {
-            return left;
-        }
-        return left + 1;
+
+        return ans;
     }
 
     public void insert(Metric metric) {
@@ -59,9 +61,9 @@ public class Store implements MetricStore {
         // get index start
         int start = binarySearch(from);
         // get index end
-        int end = binarySearch(to);
+        int end = binarySearch(to) + 1;
 
-        ArrayList<Metric> list = new ArrayList<Metric>(store.subList(start, end));
+        ArrayList<Metric> list = new ArrayList<Metric>(metricsIterator.getStore().subList(start, end));
 
         for (int i = 0; i < list.size(); i++) {
             if (name == "") {

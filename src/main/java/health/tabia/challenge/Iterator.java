@@ -33,6 +33,10 @@ public class Iterator implements MetricIterator {
         return cursor;
     }
 
+    public ArrayList<Metric> getStore() {
+        return this.metrics;
+    }
+
     public void close() throws Exception {
         metrics.clear();
     }
