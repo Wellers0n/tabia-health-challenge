@@ -9,6 +9,7 @@ public class Iterator implements MetricIterator {
     private int cursor = 0;
 
     Iterator(ArrayList<Metric> metrics) {
+        // TODO SORT PER TIMESTAMP
         this.metrics = metrics;
     }
 
