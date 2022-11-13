@@ -26,10 +26,7 @@ public class Store implements MetricStore {
         while (left <= right) {
             int mid = left + ((right - left) / 2);
             long timestamp = store.get(mid).getTimestamp();
-            if (timestamp == timestampTarget) {
-                ans = mid;
-                right = mid - 1;
-            } else if (timestamp > timestampTarget) {
+            if (timestamp >= timestampTarget) {
                 ans = mid;
                 right = mid - 1;
             } else {
