@@ -21,7 +21,7 @@ public class Store implements MetricStore {
 
         int left = 0;
         int right = store.size() - 1;
-        int ans = 0;
+        int ans = -1;
 
         while (left <= right) {
             int mid = left + ((right - left) / 2);
